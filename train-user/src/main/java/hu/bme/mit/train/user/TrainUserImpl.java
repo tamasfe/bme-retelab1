@@ -11,7 +11,7 @@ public class TrainUserImpl implements TrainUser {
 	public TrainUserImpl(TrainController controller) {
 		this.controller = controller;
 	}
-
+	build error
 	@Override
 	public boolean getAlarmFlag() {
 		return false;
