@@ -49,5 +49,5 @@ The figure below illustrates this behavior using an example.
 
 ### Additional Notes
 
-**bold text**
+_bold text_
 _italic text_
