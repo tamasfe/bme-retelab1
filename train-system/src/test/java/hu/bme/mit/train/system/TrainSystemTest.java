@@ -10,27 +10,27 @@ import hu.bme.mit.train.interfaces.TrainUser;
 import hu.bme.mit.train.system.TrainSystem;
 
 public class TrainSystemTest {
-
+	TrainSystem system;
 	TrainController controller;
 	TrainSensor sensor;
 	TrainUser user;
-	
+
 	@Before
 	public void before() {
-		TrainSystem system = new TrainSystem();
+		system = new TrainSystem();
 		controller = system.getController();
 		sensor = system.getSensor();
 		user = system.getUser();
 
 		sensor.overrideSpeedLimit(50);
 	}
-	
+
 	@Test
 	public void OverridingJoystickPosition_IncreasesReferenceSpeed() {
 		sensor.overrideSpeedLimit(10);
 
 		Assert.assertEquals(0, controller.getReferenceSpeed());
-		
+
 		user.overrideJoystickPosition(5);
 
 		controller.followSpeed();
@@ -52,6 +52,28 @@ public class TrainSystemTest {
 
 	@Test
 	public void EmptyTest() {
-		
+
+	}
+
+	@Test
+	public void PeriodicSpeedChange() {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		system.run();
+
+		int refSpeed = controller.getReferenceSpeed();
+
+		user.overrideJoystickPosition(3);
+
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		Assert.assertNotEquals(refSpeed, controller.getReferenceSpeed());
 	}
 }

@@ -25,4 +25,16 @@ public class TrainSystem {
 		return user;
 	}
 
+	public void run() {
+		new Thread(() -> {
+			while (true) {
+				controller.followSpeed();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
 }
